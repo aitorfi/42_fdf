@@ -1,0 +1,7 @@
+*.out
+*.o
+*.a
+fdf
+/maps/
+/.vscode/
+.DS_Store
