@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afidalgo <afidalgo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aitorfi <aitorfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 19:36:13 by afidalgo          #+#    #+#             */
-/*   Updated: 2023/11/04 13:20:54 by afidalgo         ###   ########.fr       */
+/*   Updated: 2023/12/22 16:02:09 by aitorfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	*read_line(int fd, char *remainder)
 char	*get_next_line_bonus(int fd)
 {
 	char		*line;
-	static char	*remainder[OPEN_MAX];
+	static char	*remainder[FOPEN_MAX];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
