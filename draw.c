@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorfi <aitorfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afidalgo <afidalgo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 16:18:35 by afidalgo          #+#    #+#             */
-/*   Updated: 2023/12/22 17:03:32 by aitorfi          ###   ########.fr       */
+/*   Updated: 2023/12/23 10:19:20 by afidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 static void		draw_tile(int x, int y, t_mlx *mlx, int tile_size);
-// static t_point	*point_3d_to_2d(t_point *point);
+static t_point	*point_3d_to_2d(t_point *point);
 
 void	draw_image(t_mlx *mlx)
 {
@@ -41,30 +41,26 @@ void	draw_image(t_mlx *mlx)
 
 static void	draw_tile(int x, int y, t_mlx *mlx, int tile_size)
 {
-	t_point	point;
-	t_point point_right;
-	t_point	point_bottom;
+	t_point	current;
+	t_point	right;
+	t_point	bottom;
 
-	point = tile_to_screen_coord(x, y, tile_size, mlx->img_data);
-	point.z += mlx->map_data.map[(y * mlx->map_data.width) + x];
-	// point_3d_to_2d(&point);
+	current = tile_to_screen_coord(x, y, tile_size, mlx->img_data);
+	current.z += mlx->map_data.map[(y * mlx->map_data.width) + x];
+	point_3d_to_2d(&current);
 	if (x < mlx->map_data.width - 1)
 	{
-		point_right = tile_to_screen_coord(x + 1, y, tile_size, mlx->img_data);
-		point_right.z += mlx->map_data.map[(y * mlx->map_data.width) + x + 1];
-		draw_line(mlx, point.x, point.y - point.z, point_right.x, point_right.y - point_right.z);
-		// point_right.z += mlx->map_data.map[(y * mlx->map_data.width) + x + 1];
-		// point_3d_to_2d(&point_right);
-		// draw_bresenham_line(mlx, &point, &point_right);
+		right = tile_to_screen_coord(x + 1, y, tile_size, mlx->img_data);
+		right.z += mlx->map_data.map[(y * mlx->map_data.width) + x + 1];
+		point_3d_to_2d(&right);
+		draw_bresenham_line(mlx, current, right);
 	}
 	if (y < mlx->map_data.height - 1)
 	{
-		point_bottom = tile_to_screen_coord(x, y + 1, tile_size, mlx->img_data);
-		point_bottom.z += mlx->map_data.map[((y + 1) * mlx->map_data.width) + x];
-		draw_line(mlx, point.x, point.y - point.z, point_bottom.x, point_bottom.y - point_bottom.z);
-		// point_bottom.z += mlx->map_data.map[((y + 1) * mlx->map_data.width) + x];
-		// point_3d_to_2d(&point_bottom);
-		// draw_bresenham_line(mlx, &point, &point_bottom);
+		bottom = tile_to_screen_coord(x, y + 1, tile_size, mlx->img_data);
+		bottom.z += mlx->map_data.map[((y + 1) * mlx->map_data.width) + x];
+		point_3d_to_2d(&bottom);
+		draw_bresenham_line(mlx, current, bottom);
 	}
 }
 
@@ -86,14 +82,14 @@ void	draw_pixel(t_mlx *mlx, int x, int y, unsigned int color)
 
 	pixel_index = y * mlx->img_data.line_len;
 	pixel_index += (x * (mlx->img_data.bits_per_pixel / 8));
-	if (x >= 0 && y >0 && x < mlx->img_data.width && y < mlx->img_data.height)
+	if (x >= 0 && y > 0 && x < mlx->img_data.width && y < mlx->img_data.height)
 		*((unsigned int *)(pixel_index + mlx->img_data.pixels)) = color;
 	else
 		log_error("Warning: Image bitmap overflow.\n");
 }
 
-// static t_point	*point_3d_to_2d(t_point *point)
-// {
-// 	point->y -= point->z;
-// 	return (point);
-// }
+static t_point	*point_3d_to_2d(t_point *point)
+{
+	point->y -= point->z;
+	return (point);
+}

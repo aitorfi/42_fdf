@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorfi <aitorfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afidalgo <afidalgo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:17:48 by afidalgo          #+#    #+#             */
-/*   Updated: 2023/12/22 17:09:27 by aitorfi          ###   ########.fr       */
+/*   Updated: 2023/12/17 14:45:01 by afidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_event_hooks(t_mlx *mlx)
 
 static int	handle_key_events(int key, t_mlx *mlx)
 {
-	if (key == KEY_ESC || key == 0xFF1B)
+	if (key == KEY_ESC)
 		terminate(mlx);
 	return (0);
 }

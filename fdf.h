@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aitorfi <aitorfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: afidalgo <afidalgo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 19:09:06 by afidalgo          #+#    #+#             */
-/*   Updated: 2023/12/22 16:32:33 by aitorfi          ###   ########.fr       */
+/*   Updated: 2023/12/23 10:35:42 by afidalgo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,13 @@ typedef struct s_mlx
 t_mlx	*init_gui(t_mlx *mlx);
 void	set_event_hooks(t_mlx *mlx);
 int		terminate(void *data);
-
 void	draw_image(t_mlx *mlx);
 void	draw_pixel(t_mlx *mlx, int x, int y, unsigned int color);
 t_point	tile_to_screen_coord(int x, int y, int tile_side, t_img_data img_data);
-// void	draw_bresenham_line(t_mlx *mlx, t_point *src, t_point *dst);
-void	draw_line(t_mlx *mlx, int x0, int y0, int x1, int y1);
-
+void	draw_bresenham_line(t_mlx *mlx, t_point src, t_point dst);
 void	parse_map(t_mlx *mlx, char *map_file);
 void	set_map_dimensions(t_mlx *mlx, int fd);
 void	fill_map(t_mlx *mlx, int fd);
-
 void	terminate_free(int fd, void *ptr1, ...);
 int		degree2radian(int degree);
 void	log_error(char *msg);
